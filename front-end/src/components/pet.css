@@ -1,0 +1,13 @@
+h1 {
+    text-align: center;
+}
+
+.all {
+    top:50%;
+    left:50%;
+    border: 1px solid black;
+    width: 500px;
+    text-align: center;
+    margin: auto;
+    padding-bottom: 50px;
+}
