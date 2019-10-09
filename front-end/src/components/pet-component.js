@@ -8,7 +8,7 @@ class Pets extends React.Component {
     super (props);
 
     this.state = {
-      pets: [],
+      pets: {},
       nameInput: '',
       toyInput: '',
     };
@@ -38,6 +38,7 @@ class Pets extends React.Component {
     this.setState({ [name]: value });
   }
 
+
   handleSubmit = (event) => {
     event.preventDefault();
     console.log(this.state);
@@ -50,17 +51,19 @@ class Pets extends React.Component {
     })
       .then(response => response.json())
       .then(data => this.setState((prevState) => {
-        return { pets: [...prevState.pets, data] }
+        return { pets: {...prevState.pets, data} }
       }));
   }
   render() {
+    console.log(this.state.pets)
     return (
       <>
       <div className="all">
       <h1>Favorite Toys</h1>
-      {this.state.pets.map((pets) => (
-        <div key={pets._id}>
-            <p>{pets.name} -- {pets.favoriteToy} <button onClick={(event) => this.handleDelete(event, pets._id)}>Delete</button></p>
+        {Object.keys(this.state.pets).map((keyName, i) => (
+        <div key={i}>
+            <p>{this.state.pets[keyName].name} -- {this.state.pets[keyName].favoriteToy} 
+            <button onClick={(event) => this.handleDelete(event, this.state.pets._id)}>Delete</button></p>
         </div>
           )
         )}
