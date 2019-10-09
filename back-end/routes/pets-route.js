@@ -20,11 +20,13 @@ const pet3 = {
   favoriteToy: 'flower',
 }
 
-let pets = [
+let pets = {...[
   pet1,
   pet2,
   pet3
-]
+]};
+
+console.log(pets)
 
 
 petRouter.get('/toys', (request, response) => {
@@ -32,14 +34,19 @@ petRouter.get('/toys', (request, response) => {
 });
 
 petRouter.post('/toys', (request, response) => {
-  const newPets = {_id: uuid(), name: request.body.name, favoriteToy: request.body.favoriteToy};
-  pets.push(newPets);
-  response.send(newPets);
+  var newPets = {_id: uuid(), name: request.body.name, favoriteToy: request.body.favoriteToy};
+  for ( var index in pets ) {
+  if ( pets[index].Status == "Valid" ) { 
+    newPets[index] = pets; 
+  } 
+ }
+  pets = newPets;
+  response.send(pets);
 });
 
 petRouter.delete('/toys', (request, response) => {
   const deleteId = request.body._id;
-  pets.forEach((pet, idx) => {
+  Object.assign((pet, idx) => {
     if (pet._id === deleteId) {
       pets.splice(idx, 1);
     }
